@@ -2,55 +2,95 @@
 
 namespace App\Controllers;
 
-use App\Models\AdminModel;
 use App\Models\PermohonanModel;
+use App\Models\AdminModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class AdminDashboard extends BaseController
 {
+    protected $permohonanModel;
+    protected $adminModel;
+
+    public function __construct()
+    {
+        $this->permohonanModel = new PermohonanModel();
+        $this->adminModel      = new AdminModel();
+    }
+
+    // =====================================
+    // DASHBOARD UTAMA
+    // =====================================
     public function index()
     {
-        $session = session();
-        if ($session->get('role') !== 'utama') {
-            return redirect()->to('/admin/login');
-        }
-
-        $permohonanModel = new PermohonanModel();
-        $adminModel = new AdminModel();
-
-        $data['permohonan'] = $permohonanModel->findAll();
-        $data['admins'] = $adminModel->where('role', 'bidang')->findAll();
+        $data = [
+            'permohonan' => $this->permohonanModel
+                ->orderBy('created_at', 'DESC')
+                ->findAll(),
+            'admins' => $this->adminModel->findAll()
+        ];
 
         return view('admin/dashboard_utama', $data);
     }
 
-    public function bidang()
+    // =====================================
+    // DETAIL PERMOHONAN (FULL DATA)
+    // =====================================
+    public function detail($id)
     {
-        $session = session();
+        $permohonan = $this->permohonanModel
+            ->select('permohonan.*, admins.bidang AS bidang_admin')
+            ->join('admins', 'admins.id = permohonan.assigned_to', 'left')
+            ->where('permohonan.id', $id)
+            ->first();
 
-        if ($session->get('role') !== 'bidang') {
-            return redirect()->to('/admin/login');
+        if (!$permohonan) {
+            throw new PageNotFoundException('Permohonan tidak ditemukan');
         }
 
-        $permohonanModel = new PermohonanModel();
-
-        $data['permohonan'] = $permohonanModel
-            ->where('assigned_to', $session->get('admin_id'))
-            ->findAll();
-
-        return view('admin/dashboard_bidang', $data);
+        return view('admin/detail_permohonan', [
+            'permohonan' => $permohonan
+        ]);
     }
 
-    public function assign($id_permohonan)
+    // =====================================
+    // APPROVE PERMOHONAN
+    // =====================================
+    public function approve($id)
     {
-        $permohonanModel = new PermohonanModel();
-
-        $assigned_to = $this->request->getPost('assigned_to');
-
-        $permohonanModel->update($id_permohonan, [
-            'assigned_to' => $assigned_to,
-            'status' => 'Ditugaskan'
+        $this->permohonanModel->update($id, [
+            'status'            => 'Disetujui',
+            'diputuskan_pada'   => date('Y-m-d H:i:s'),
+            'diputuskan_oleh'   => session()->get('admin_id')
         ]);
 
-        return redirect()->to('/admin/dashboard');
+        return redirect()->back()->with('success', 'Permohonan disetujui');
+    }
+
+    // =====================================
+    // REJECT PERMOHONAN
+    // =====================================
+    public function reject($id)
+    {
+        $this->permohonanModel->update($id, [
+            'status'             => 'Ditolak',
+            'alasan_penolakan'   => $this->request->getPost('alasan_penolakan'),
+            'diputuskan_pada'    => date('Y-m-d H:i:s'),
+            'diputuskan_oleh'    => session()->get('admin_id')
+        ]);
+
+        return redirect()->back()->with('success', 'Permohonan ditolak');
+    }
+
+    // =====================================
+    // ASSIGN KE ADMIN/BIDANG
+    // =====================================
+    public function assign($id)
+    {
+        $this->permohonanModel->update($id, [
+            'assigned_to' => $this->request->getPost('assigned_to'),
+            'status'      => 'Diproses'
+        ]);
+
+        return redirect()->back()->with('success', 'Permohonan berhasil di-assign');
     }
 }

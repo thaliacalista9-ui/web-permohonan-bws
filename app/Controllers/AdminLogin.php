@@ -11,38 +11,28 @@ class AdminLogin extends BaseController
         return view('admin/login');
     }
 
+    // ✅ INI LOGIN ADMIN
     public function auth()
     {
-        $session = session();
-        $adminModel = new AdminModel();
-
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // CARI USER BERDASARKAN USERNAME
-        $admin = $adminModel->where('username', $username)->first();
+        $model = new AdminModel();
+        $admin = $model->where('username', $username)->first();
 
-        if ($admin) {
-            // CEK PASSWORD MENGGUNAKAN password_verify
-            if (password_verify($password, $admin['password'])) {
+        if ($admin && password_verify($password, $admin['password'])) {
 
-                $sessionData = [
-                    'admin_id' => $admin['id'],
-                    'username' => $admin['username'],
-                    'role'     => $admin['role'],
-                    'logged_in' => true
-                ];
+            session()->set([
+                'isAdminLoggedIn' => true,
+                'admin_id' => $admin['id'],
+                'admin_name' => $admin['username']
+            ]);
 
-                $session->set($sessionData);
-                return redirect()->to('/admin/dashboard');
-            } else {
-                $session->setFlashdata('error', 'Password salah!');
-                return redirect()->to('/admin/login');
-            }
-        } else {
-            $session->setFlashdata('error', 'Username tidak ditemukan!');
-            return redirect()->to('/admin/login');
+            // ✅ PINDAH KE DASHBOARD ADMIN
+            return redirect()->to('/admin/dashboard');
         }
+
+        return redirect()->back()->with('error', 'Username atau password salah');
     }
 
     public function logout()
