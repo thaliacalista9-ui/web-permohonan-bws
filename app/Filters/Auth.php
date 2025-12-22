@@ -10,7 +10,7 @@ class Auth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (! session()->get('isAdminLoggedIn')) {
+        if (!session()->get('isLogin')) {
             return redirect()->to('/admin/login');
         }
     }

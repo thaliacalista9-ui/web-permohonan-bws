@@ -270,6 +270,11 @@ small {
     border-left: 3px solid var(--color-danger);
     padding-left: 8px;
 }
+.status-Diserahkan {
+    background-color: rgba(82, 108, 136, 0.15);
+    color: var(--color-secondary);
+}
+
 </style>
 </head>
 

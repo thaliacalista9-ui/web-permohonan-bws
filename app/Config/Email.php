@@ -6,17 +6,23 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public $fromEmail  = 'emailkamu@gmail.com';
-    public $fromName   = 'Layanan Informasi Data BWS Sumatera V';
+    public $fromEmail = 'permohonandatabwssumaterav@gmail.com';
+    public $fromName  = 'Layanan Informasi Data BWS Sumatera V';
 
-    public $SMTPHost   = 'smtp.gmail.com';
-    public $SMTPUser   = 'emailkamu@gmail.com'; 
-    public $SMTPPass   = 'password_app_email';   
-    public $SMTPPort   = 587; 
+    public $protocol  = 'smtp';
+    public $SMTPHost  = 'smtp.gmail.com';
+    public $SMTPUser  = 'permohonandatabwssumaterav@gmail.com';
+    public $SMTPPass  = 'yddu jxie wzff ggmb';
+    public $SMTPPort  = 587;
     public $SMTPCrypto = 'tls';
 
-    public $protocol   = 'smtp';
-    public $mailType   = 'html';
-    public $charset    = 'utf-8';
-    public $newline    = "\r\n";
+    public $mailType  = 'html';
+    public $charset   = 'utf-8';
+    public $wordWrap  = true;
+
+    public $CRLF      = "\r\n";
+    public $newline   = "\r\n";
+
+    public $SMTPTimeout = 60;
+    public $validate    = true;
 }

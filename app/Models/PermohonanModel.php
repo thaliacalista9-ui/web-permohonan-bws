@@ -1,20 +1,25 @@
 <?php
 
 namespace App\Models;
+
 use CodeIgniter\Model;
 
-class PermohonanModel extends Model
+class SurveyModel extends Model
 {
-    protected $table = 'permohonan';
+    protected $table      = 'survey';
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-        'nama','ktp','email','whatsapp','pekerjaan','alamat',
-        'jenis_data','tujuan','catatan','file_ktp','file_surat',
-        'no_surat','kode','status','assigned_to'
+        'nilai',
+        'komentar',
+        'created_at'
     ];
 
-    protected $useTimestamps = true;        
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    protected $useTimestamps = false;
+
+    // 🔹 HITUNG RATA-RATA KEPUASAN
+    public function getRataRata()
+    {
+        return $this->selectAvg('nilai')->get()->getRow()->nilai;
+    }
 }

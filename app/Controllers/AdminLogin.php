@@ -6,35 +6,51 @@ use App\Models\AdminModel;
 
 class AdminLogin extends BaseController
 {
+    protected $adminModel;
+
+    public function __construct()
+    {
+        $this->adminModel = new AdminModel();
+    }
+
+    // ================= FORM LOGIN =================
     public function index()
     {
         return view('admin/login');
     }
 
-    // ✅ INI LOGIN ADMIN
+    // ================= PROSES LOGIN =================
     public function auth()
     {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        $model = new AdminModel();
-        $admin = $model->where('username', $username)->first();
+        $admin = $this->adminModel
+            ->where('username', $username)
+            ->first();
 
-        if ($admin && password_verify($password, $admin['password'])) {
+        if (!$admin || !password_verify($password, $admin['password'])) {
+            return redirect()->back()->with('error', 'Username atau password salah');
+        }
 
-            session()->set([
-                'isAdminLoggedIn' => true,
-                'admin_id' => $admin['id'],
-                'admin_name' => $admin['username']
-            ]);
+        // ✅ SESSION RESMI
+        session()->set([
+            'isLogin'  => true,
+            'admin_id' => $admin['id'],
+            'username' => $admin['username'],
+            'role'     => $admin['role'],   
+            'bidang'   => $admin['bidang']  
+        ]);
 
-            // ✅ PINDAH KE DASHBOARD ADMIN
+        // ✅ ARAHKAN SESUAI ROLE
+        if ($admin['role'] === 'utama') {
             return redirect()->to('/admin/dashboard');
         }
 
-        return redirect()->back()->with('error', 'Username atau password salah');
+        return redirect()->to('/admin/bidang/dashboard');
     }
 
+    // ================= LOGOUT =================
     public function logout()
     {
         session()->destroy();

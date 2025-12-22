@@ -1,129 +1,136 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lacak Permohonan | BWS Sumatera V</title>
+<?= $this->include('layout/header') ?>
+<?= $this->include('layout/navbar') ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<main class="content-offset">
+    <div class="container container-compact">
 
-<style>
-    body { font-family: 'Poppins', sans-serif; background:#f4f6f9; }
+        <div class="tracking-container">
 
-    .navbar { background:#0A2A43; }
-    .navbar .nav-link:hover { color:#f0c400 !important; }
-    .navbar .nav-link.active { color:#f0c400 !important; font-weight:700; }
+            <h1 class="title-head">Lacak Permohonan Data</h1>
+            <p class="desc">
+                Masukkan Nomor Tracking / ID Permohonan untuk mengetahui status permohonan data Anda.
+            </p>
 
-    .tracking-container {
-        background:white;
-        padding:40px 45px;
-        border-radius:16px;
-        box-shadow:0 8px 30px rgba(0,0,0,0.1);
-        max-width:800px;
-        margin:auto;
-        margin-top:60px;
-        margin-bottom:60px;
-    }
+            <!-- FORM TRACKING -->
+            <form action="/tracking/cari" method="post" class="tracking-form">
+                <?= csrf_field() ?>
+                <input 
+                    type="text" 
+                    name="kode" 
+                    class="form-control"
+                    placeholder="Contoh: BWS-20250520-1234"
+                    required
+                >
+                <button type="submit" class="btn btn-track">
+                    Lacak Sekarang
+                </button>
+            </form>
 
-    .title-head {
-        font-size:42px;
-        font-weight:800;
-        text-align:center;
-        margin-bottom:10px;
-        color:#0A2A43;
-    }
+            <!-- JIKA TIDAK DITEMUKAN -->
+            <?php if (!empty($not_found)): ?>
+                <div class="alert alert-danger mt-4">
+                    ❌ Nomor tracking tidak ditemukan.  
+                    Pastikan kode yang Anda masukkan sudah benar.
+                </div>
+            <?php endif; ?>
 
-    .desc {
-        text-align:center;
-        font-size:18px;
-        color:#666;
-        margin-bottom:25px;
-    }
+            <!-- HASIL TRACKING -->
+            <?php if (!empty($hasil)): ?>
+                <div class="result-box mt-4">
 
-    .form-control {
-        padding:14px;
-        border-radius:12px;
-        font-size:17px;
-    }
+                    <h4 class="result-title">Detail Permohonan</h4>
 
-    .btn-track {
-        background:#f0c400;
-        font-weight:700;
-        font-size:18px;
-        padding:14px;
-        border-radius:12px;
-        width:100%;
-        margin-top:18px;
-        color:#000;
-    }
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th width="35%">Nomor Tracking</th>
+                                    <td><?= esc($hasil['kode_tracking']) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Nama Pemohon</th>
+                                    <td><?= esc($hasil['nama_pemohon']) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Instansi</th>
+                                    <td><?= esc($hasil['instansi']) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Jenis Data</th>
+                                    <td><?= esc($hasil['jenis_data']) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Keperluan</th>
+                                    <td><?= esc($hasil['keperluan']) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Tanggal Permohonan</th>
+                                    <td><?= date('d M Y', strtotime($hasil['tanggal_permohonan'])) ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>
+                                        <?php if ($hasil['status'] == 'diproses'): ?>
+                                            <span class="badge bg-warning text-dark">
+                                                Sedang Diproses
+                                            </span>
+                                        <?php elseif ($hasil['status'] == 'disetujui'): ?>
+                                            <span class="badge bg-success">
+                                                Disetujui
+                                            </span>
+                                        <?php elseif ($hasil['status'] == 'ditolak'): ?>
+                                            <span class="badge bg-danger">
+                                                Ditolak
+                                            </span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
 
-    .result-box {
-        margin-top:30px;
-        border-radius:14px;
-        padding:25px;
-        background:#eaf0f6;
-    }
+                                <?php if (!empty($hasil['catatan_admin'])): ?>
+                                <tr>
+                                    <th>Catatan Admin</th>
+                                    <td><?= esc($hasil['catatan_admin']) ?></td>
+                                </tr>
+                                <?php endif; ?>
 
-    .status-label {
-        font-size:20px;
-        font-weight:700;
-        color:#0A2A43;
-    }
-</style>
-</head>
-<body>
+                                <?php if ($hasil['status'] == 'disetujui' && !empty($hasil['file_data'])): ?>
+                                <tr>
+                                    <th>File Data</th>
+                                    <td>
+                                        <a 
+                                            href="/uploads/data/<?= esc($hasil['file_data']) ?>" 
+                                            class="btn btn-success btn-sm"
+                                            target="_blank"
+                                        >
+                                            ⬇️ Unduh Data
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <img src="/img/logo.png" height="50" class="me-3">
-        <a class="navbar-brand fw-bold">SISTEM PERMOHONAN DATA</a>
+                    <?php if ($hasil['status'] == 'disetujui'): ?>
+                        <div class="text-center mt-4">
+                            <p class="text-muted">
+                                Silakan isi survei kepuasan setelah menerima layanan kami.
+                            </p>
+                            <a 
+                                href="/kepuasan/isi/<?= esc($hasil['kode_tracking']) ?>" 
+                                class="btn btn-main"
+                            >
+                                Isi Survei Kepuasan
+                            </a>
+                        </div>
+                    <?php endif; ?>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                </div>
+            <?php endif; ?>
 
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link text-white" href="/">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="/permohonan">Ajukan Permohonan</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/tracking">Lacak Permohonan</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="/grafik">Grafik Kepuasan</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="/faq">FAQ</a></li>
-            </ul>
         </div>
+
     </div>
-</nav>
+</main>
 
-<!-- TRACKING FORM -->
-<div class="tracking-container">
-    <h1 class="title-head">Lacak Permohonan Data</h1>
-    <p class="desc">Masukkan Nomor Tracking / ID Permohonan untuk mengetahui status proses permintaan data Anda.</p>
-
-    <form action="/tracking/cari" method="post">
-        <input type="text" name="kode" class="form-control" placeholder="Contoh: BWS-2025-1234" required>
-        <button type="submit" class="btn btn-track">Lacak Sekarang</button>
-    </form>
-
-    <?php if ($not_found): ?>
-        <div class="alert alert-danger mt-4">Kode tracking tidak ditemukan.</div>
-    <?php endif; ?>
-
-    <?php if ($hasil): ?>
-    <div class="result-box mt-4">
-        <p class="status-label">Status Permohonan :</p>
-        <table class="table table-bordered mt-2">
-            <tr><th>Nomor Permohonan</th><td><?= $hasil['tracking'] ?></td></tr>
-            <tr><th>Nama Pemohon</th><td><?= $hasil['nama'] ?></td></tr>
-            <tr><th>Jenis Data</th><td><?= $hasil['jenis_data'] ?></td></tr>
-            <tr><th>Status Proses</th><td><span class="badge bg-warning text-dark">Sedang Diproses</span></td></tr>
-            <tr><th>Tanggal Update</th><td><?= $hasil['created_at'] ?? '-' ?></td></tr>
-        </table>
-    </div>
-    <?php endif; ?>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?= $this->include('layout/footer') ?>
