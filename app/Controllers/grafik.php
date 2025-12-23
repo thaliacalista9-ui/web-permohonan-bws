@@ -2,32 +2,31 @@
 
 namespace App\Controllers;
 
-use App\Models\SurveyModel;
+use App\Models\PermohonanModel;
 
 class Grafik extends BaseController
 {
-    protected $surveyModel;
+    protected $permohonanModel;
 
     public function __construct()
     {
-        $this->surveyModel = new SurveyModel();
+        $this->permohonanModel = new PermohonanModel();
     }
 
+    // Halaman grafik untuk user/admin
     public function index()
     {
-        $data['rata'] = $this->surveyModel->getRataRata();
-        $data['jumlah'] = $this->surveyModel->countAll();
+        // Ambil data survei yang sudah diisi
+        $data['survei'] = $this->permohonanModel
+            ->where('survey_diisi', 1)
+            ->findAll();
 
-        return view('grafik/index', $data);
+        return view('grafik', $data);
     }
 
+    // Jika mau submit survey lewat grafik (opsional)
     public function submitSurvey()
     {
-        $this->surveyModel->insert([
-            'nilai' => $this->request->getPost('nilai'),
-            'komentar' => $this->request->getPost('komentar')
-        ]);
-
-        return redirect()->to('/grafik');
+        // Bisa diisi nanti sesuai kebutuhan
     }
 }

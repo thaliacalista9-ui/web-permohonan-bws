@@ -1,54 +1,52 @@
-<footer class="footer">
+<footer class="footer-premium">
     <div class="container container-compact py-5">
-        <div class="row">
-            <!-- INFO SISTEM -->
-            <div class="col-md-6 mb-4">
-                <h5 class="fw-bold text-white mb-3">
-                    Sistem Permohonan Data
+
+        <div class="row gy-4 align-items-start">
+
+            <!-- BRAND / INFO -->
+            <div class="col-md-5">
+                <h5 class="footer-brand">
+                    Layanan Informasi Sumber Daya Air
                 </h5>
-                <p class="text-muted mb-0">
-                    Layanan digital terintegrasi untuk permintaan data
-                    Sumber Daya Air pada BWS Sumatera V.
+                <p class="footer-desc">
+                    Sistem layanan digital untuk mendukung transparansi dan
+                    kemudahan akses data Sumber Daya Air pada BWS Sumatera V.
                 </p>
             </div>
 
-            <!-- TAUTAN CEPAT -->
-            <div class="col-md-3 mb-4">
-                <h5 class="fw-bold text-white mb-3">Tautan Cepat</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/" class="footer-link">Beranda</a></li>
-                    <li><a href="/permohonan" class="footer-link">Ajukan Permohonan</a></li>
-                    <li><a href="/tracking" class="footer-link">Lacak Permohonan</a></li>
-                    <li><a href="/faq" class="footer-link">FAQ</a></li>
+            <!-- NAVIGATION -->
+            <div class="col-md-3">
+                <h6 class="footer-title">Navigasi</h6>
+                <ul class="footer-nav">
+                    <li><a href="/">Beranda</a></li>
+                    <li><a href="/permohonan">Permohonan</a></li>
+                    <li><a href="/tracking">Tracking</a></li>
+                    <li><a href="/faq">FAQ</a></li>
                 </ul>
             </div>
 
-            <!-- KONTAK -->
-            <div class="col-md-3 mb-4">
-                <h5 class="fw-bold text-white mb-3">Kontak</h5>
-                <ul class="list-unstyled text-muted">
-                    <li class="mb-2">
-                        <i class="bi bi-geo-alt-fill me-2"></i> Alamat Kantor
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-envelope-fill me-2"></i> email@bwssumaterav.go.id
-                    </li>
-                    <li>
-                        <i class="bi bi-telephone-fill me-2"></i> (0751) XXXX XXXX
-                    </li>
+            <!-- CONTACT -->
+            <div class="col-md-4">
+                <h6 class="footer-title">Kontak</h6>
+                <ul class="footer-contact">
+                    <li><i class="bi bi-geo-alt"></i> BWS Sumatera V</li>
+                    <li><i class="bi bi-envelope"></i> info@bwssumaterav.go.id</li>
+                    <li><i class="bi bi-telephone"></i> (0751) xxxx xxxx</li>
                 </ul>
             </div>
+
         </div>
 
-        <hr class="border-secondary">
-
-        <div class="text-center text-muted pt-2">
-            © 2025 BWS Sumatera V – Sistem Layanan Informasi SDA
+        <div class="footer-bottom">
+            © 2025 BWS Sumatera V · Sistem Layanan Informasi SDA
         </div>
+
     </div>
 </footer>
 
-<!-- FLOATING WHATSAPP -->
-<a class="floating-wa" href="https://wa.me/xxxx" target="_blank">
-    <i class="bi bi-whatsapp me-2"></i> Chat Bantuan
+<!-- FLOATING WHATSAPP (MINIMAL) -->
+<a href="https://wa.me/xxxx" class="floating-wa" target="_blank" aria-label="Chat WhatsApp">
+    <i class="bi bi-whatsapp"></i>
 </a>
+<!-- BOOTSTRAP JS (WAJIB UNTUK ACCORDION & NAVBAR) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

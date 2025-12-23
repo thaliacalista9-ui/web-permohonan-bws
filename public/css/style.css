@@ -1,533 +1,745 @@
 /* ==================================================
-   A. DESIGN TOKENS (CONSISTENT & SINGLE SOURCE)
+   1. DESIGN TOKENS (WARNA & SISTEM)
    ================================================== */
 :root {
-  /* Brand Colors */
-  --brand-primary: #173f5f;
-  --brand-dark: #0a1a2f;
+  --primary-dark: #0a1a2f;   /* dongker */
+  --primary-main: #173f5f;
+  --accent: #ff8c1a;         /* aksen */
 
-  /* Accent */
-  --accent-primary: #FFD43B;
-  --accent-secondary: #ffbd00;
+  --bg-light: #ffffff;
+  --bg-soft: #f5f8ff;
 
-  /* UI */
-  --bg-light: #f5f8ff;
-  --text-main: #222;
-  --text-muted: #666;
-  --text-inverse: #ffffff;
-  --navbar-text: #e0e7ff;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
 
-  /* Spacing */
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 20px;
-  --spacing-lg: 40px;
-
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
   --radius-lg: 16px;
 
-  /* Shadow */
-  --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
-  --shadow-md: 0 4px 15px rgba(0,0,0,.12);
-  --shadow-lg: 0 10px 30px rgba(0,0,0,.2);
+  --shadow-sm: 0 4px 12px rgba(0,0,0,.06);
+  --shadow-md: 0 12px 30px rgba(0,0,0,.08);
 }
-
 
 /* ==================================================
-   B. BASE / RESET
+   2. BASE / RESET
    ================================================== */
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  line-height: 1.65;
-  background: var(--bg-light);
-  color: var(--text-main);
-  overflow-x: hidden;
+* {
+  box-sizing: border-box;
 }
 
-h1, h2, h3 {
+body {
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--brand-primary);
+  background: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.7;
 }
 
 a {
-  color: var(--brand-primary);
   text-decoration: none;
-  transition: color .2s ease;
-}
-
-a:hover {
-  color: var(--accent-secondary);
+  color: inherit;
 }
 
 .container-compact {
   max-width: 1200px;
+  padding-inline: 20px;
   margin-inline: auto;
-  padding-inline: var(--spacing-md);
 }
 
 .content-offset {
-  margin-top: 100px;
-  min-height: calc(100vh - 100px - 200px);
-}
-
-
-/* ==================================================
-   C. NAVBAR — COMPACT & LURUS
-   ================================================== */
-.navbar-professional {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 72px;                 /* 🔥 NAVBAR DIPENDEKIN */
-  padding: 0;                   /* buang padding atas bawah */
-  display: flex;
-  align-items: center;          /* semua isi CENTER VERTIKAL */
-  background: var(--brand-primary);
-  box-shadow: var(--shadow-md);
-  z-index: 9999;
-}
-
-/* versi shrink (kalau nanti pakai scroll) */
-.navbar-professional.navbar-scrolled {
-  height: 64px;
+  padding-top: 90px;
 }
 
 /* ==================================================
-   BRAND
+   3. NAVBAR PREMIUM (PUTIH + BLUR)
    ================================================== */
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+
+.navbar-premium {
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15,23,42,.08);
+  padding: 1rem 0;
 }
 
-.navbar-brand img {
-  height: 36px;                 /* logo dikecilin */
+/* BRAND */
+.brand-text {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: var(--primary-dark);
+  margin-right: 64px; 
 }
 
-.navbar-brand-title {
-  font-size: 1.1rem;            /* lebih ringkas */
-  font-weight: 900;
-  color: var(--text-inverse);
-  line-height: 1;
-}
 
-.navbar-brand-sub {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-inverse);
-  opacity: .9;
-  line-height: 1;
-}
-
-/* ==================================================
-   NAV MENU — SATU BARIS LURUS
-   ================================================== */
-.navbar-nav {
-  display: flex;
-  align-items: center;
-  margin-left: auto;            /* dorong menu ke kanan */
-}
-
-.navbar-nav .nav-link {
-  margin-left: 22px;
-  padding: 6px 4px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--navbar-text);
-  white-space: nowrap;          /* 🔥 cegah turun baris */
+/* NAV LINK */
+.navbar-premium .nav-link {
+  font-size: .92rem;
+  font-weight: 600;               
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  text-transform: uppercase;     
   position: relative;
+  padding: .45rem 0;
 }
 
-.navbar-nav .nav-link::after {
+/* ACTIVE + HOVER */
+.navbar-premium .nav-link:hover,
+.navbar-premium .nav-link.active {
+  color: var(--primary-dark);
+}
+
+.navbar-premium .nav-link.active::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
-  width: 0;
-  height: 3px;
-  background: var(--accent-primary);
-  transition: width .25s ease;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-  color: var(--text-inverse);
-}
-
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
+  bottom: -8px;
   width: 100%;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 
-/* ==================================================
-   BUTTON ADMIN — RINGKAS
-   ================================================== */
-.nav-btn-admin-professional {
-  margin-left: 24px;
-  padding: 8px 18px;            /* diperkecil */
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--brand-primary);
-  background: var(--accent-primary);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  white-space: nowrap;
-}
-
-.nav-btn-admin-professional:hover {
-  background: var(--accent-secondary);
-}
-
-/* ==================================================
-   FIX OFFSET KONTEN
-   ================================================== */
-.page-wrapper {
-  padding-top: 72px;            /* 🔥 SAMA DENGAN TINGGI NAVBAR */
-  min-height: calc(100vh - 72px);
-}
-
-/* ==================================================
-   MOBILE (tetap aman)
-   ================================================== */
-@media (max-width: 991px) {
-  .navbar-professional {
-    height: auto;
-    padding: 12px 0;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    margin-top: 12px;
-  }
-
-  .navbar-nav .nav-link {
-    margin: 6px 0;
-  }
-
-  .nav-btn-admin-professional {
-    margin: 12px 0 0;
-    width: 100%;
-    text-align: center;
-  }
-
-  .page-wrapper {
-    padding-top: 95px;
-  }
-}
-
-
-/* ==================================================
-   D. HERO SECTION
-   ================================================== */
-.hero {
-  position: relative;
-  min-height: 90vh;
-  background: url('/img/banner.jpg') center / cover no-repeat;
-  padding: 120px 0;
-  color: var(--text-inverse);
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 42, 67, .7);
-  z-index: 1;
-}
-
-.hero > * {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-content h1 {
-  font-size: clamp(48px, 6.5vw, 84px);
-  font-weight: 900;
-  color: var(--text-inverse);
-  text-shadow: 0 8px 20px rgba(0,0,0,.6);
-}
-
-.hero-sub {
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 35px;
-  text-shadow: 0 3px 10px rgba(0,0,0,.4);
-}
-
-.hero-cta {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-
-/* ==================================================
-   E. BUTTON SYSTEM
-   ================================================== */
-.btn-main {
-  padding: 15px 40px;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--brand-primary);
-  background: var(--accent-primary);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  transition: all .3s ease;
-}
-
-.btn-main:hover {
-  background: var(--accent-secondary);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-ghost {
-  padding: 15px 35px;
-  font-weight: 600;
-  color: var(--text-inverse);
-  border: 2px solid rgba(255,255,255,.9);
-  background: rgba(255,255,255,.1);
-  border-radius: var(--radius-md);
-  transition: all .3s ease;
-}
-
-.btn-ghost:hover {
-  background: rgba(255,255,255,.25);
-  transform: scale(1.02);
-}
-
-
-/* ==================================================
-   F. FEATURE & STEP CARDS
-   ================================================== */
-.section-title {
-  font-size: 42px;
-  font-weight: 900;
-  margin-bottom: var(--spacing-lg);
-}
-
-.feature-box {
-  padding: 40px 30px;
-  background: #fff;
-  border-radius: var(--radius-lg);
-  border-top: 5px solid var(--accent-primary);
-  box-shadow: var(--shadow-md);
-  min-height: 320px; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.feature-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.15);
-}
-
-.feature-box i {
-  font-size: 58px;
-  color: var(--brand-primary);
-  margin-bottom: 15px;
-  transition: color .3s ease;
-}
-
-.feature-box:hover i {
-  color: var(--accent-primary);
-}
-
-.step-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 22px;
-
-  padding: 36px 38px;
-  min-height: 210px;              
-  height: 100%;
-
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
-  border-left: 6px solid var(--accent-primary);
-
-  transition: all .3s ease;
-}
-
-.step-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,.15);
-}
-
-
-.step-number {
-  flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  display: flex;
+/* ADMIN BUTTON NAVBAR */
+.btn-admin {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--brand-primary);
-  background: transparent;
-  border: 4px solid var(--accent-primary);
-  border-radius: 50%;
-  transition: all .3s ease;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  background: var(--primary-dark);
+  color: #fff;
+  border-radius: 999px;
 }
 
-.step-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-}
-
-.step-content h4 {
-  margin: 0 0 12px;
-  font-size: 24px;        
-  font-weight: 900;       
-  color: var(--brand-primary);
-  line-height: 1.3;
-}
-
-.step-content p {
-  margin: 0;
-  font-size: 16px;
-  color: #444;
-  line-height: 1.75;
-  max-width: 260px; 
-}
-
-/* Hover effect */
-.step-card:hover .step-number {
-  color: var(--text-inverse);
-  background: var(--brand-primary);
-  border-color: var(--brand-primary);
+.btn-admin:hover {
+  background: var(--accent);
+  color: #fff;
 }
 
 
 /* ==================================================
-   G. FORM
+   4. HOME HERO (DONGKER SOLID)
    ================================================== */
-.form-wrapper {
-  padding: 55px 60px;
-  background: #fff;
-  border-top: 8px solid var(--accent-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-}
-
-.form-wrapper label {
-  font-weight: 700;
-  margin: 20px 0 8px;
-  display: block;
-}
-
-.form-control,
-.form-select {
-  padding: 16px 18px;
-  font-size: 16px;
-  border-radius: var(--radius-md);
-  border: 2px solid #e0e8f2;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 4px rgba(255,212,59,.3);
-}
-
-.btn-submit-professional {
-  margin-top: 20px;
-  padding: 18px;
-  font-size: 20px;
-  font-weight: 900;
-  background: var(--accent-primary);
-  border-radius: var(--radius-md);
-}
-
-
-/* ==================================================
-   H. FOOTER & WA
-   ================================================== */
-footer {
-  background: var(--brand-dark);
-  padding: 70px 0 40px;
-  color: #ffffff; /* putih jelas */
-}
-
-.footer-link {
+.home-hero {
+  background: var(--primary-dark);
   color: #ffffff;
+  padding: 120px 0 80px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: .75rem;
+  letter-spacing: .08em;
+  margin-bottom: 16px;
+}
+
+.home-hero .hero-title {
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.home-hero .hero-desc {
+  max-width: 640px;
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+/* ==================================================
+   5. QUICK ACCESS CARDS (KOTAK PUTIH)
+   ================================================== */
+.home-cards {
+  margin-top: -60px;
+  padding-bottom: 80px;
+}
+
+.portal-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(15,23,42,.06);
+  height: 100%;
+}
+
+.portal-card h5 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.portal-card p {
+  color: var(--text-muted);
+  font-size: .95rem;
+  margin-bottom: 14px;
+}
+
+.card-link {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ==================================================
+   6. FLOW / ALUR (PORTAL STYLE)
+   ================================================== */
+.home-flow {
+  padding: 80px 0;
+  background: var(--bg-soft);
+}
+
+.section-title {
+  font-weight: 800;
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+  color: var(--primary-dark);
+}
+
+.flow-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+}
+
+.flow-card span {
+  font-weight: 800;
+  color: var(--accent);
   display: block;
   margin-bottom: 10px;
-  opacity: .85;
 }
 
-.footer-link:hover {
-  opacity: 1;
-  color: var(--accent-primary);
+.flow-card h5 {
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-.footer-link:hover {
-  color: var(--accent-primary);
+.flow-card p {
+  color: var(--text-muted);
+  font-size: .95rem;
 }
 
+/* ==================================================
+   7. FOOTER PREMIUM (DONGKER)
+   ================================================== */
+.footer-premium {
+  background: var(--primary-dark);
+  color: #e5e7eb;
+}
+
+.footer-brand {
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.footer-desc {
+  font-size: .9rem;
+  color: #cbd5e1;
+  max-width: 420px;
+}
+
+.footer-title {
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 14px;
+}
+
+.footer-nav,
+.footer-contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav li,
+.footer-contact li {
+  margin-bottom: 8px;
+}
+
+.footer-nav a:hover {
+  color: var(--accent);
+}
+
+.footer-contact i {
+  margin-right: 6px;
+  color: var(--accent);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin-top: 40px;
+  padding-top: 18px;
+  font-size: .8rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+/* ==================================================
+   8. FLOATING WHATSAPP
+   ================================================== */
 .floating-wa {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background: #25D366;
-  padding: 12px 20px;
-  border-radius: 999px;
-  box-shadow: var(--shadow-md);
+  width: 52px;
+  height: 52px;
+  background: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  z-index: 999;
 }
-
 
 /* ==================================================
-   I. RESPONSIVE
+   9. RESPONSIVE
    ================================================== */
-@media (max-width: 991px) {
-  .navbar-professional {
-    position: absolute;
-    padding: 1rem 0;
+@media (max-width: 768px) {
+  .content-offset {
+    padding-top: 100px;
   }
 
-  .navbar-nav {
-    margin-top: 15px;
-    padding: 15px;
-    background: var(--brand-primary);
+  .home-cards {
+    margin-top: -40px;
   }
-
-  .navbar-nav .nav-link { margin: 8px 0; }
-  .navbar-nav .nav-link::after { display: none; }
-
-  .nav-btn-admin-professional {
-    margin: 15px 0 0;
-    width: 100%;
-  }
-
-  .hero { min-height: 70vh; padding: 80px 0; }
-  .hero-content h1 { font-size: 40px; }
-  .hero-sub { font-size: 18px; }
-  .hero-cta { flex-direction: column; }
-
-  .form-wrapper { padding: 40px 30px; }
 }
 /* ==================================================
-   FIX OFFSET NAVBAR (TANPA UBAH DESAIN)
+   PERMOHONAN PAGE – PREMIUM & PRESISI
    ================================================== */
-.page-wrapper {
-  padding-top: 120px; /* tinggi aman navbar desktop */
-  min-height: calc(100vh - 120px);
+
+/* ===== HEADER HALAMAN ===== */
+.form-header {
+  background: linear-gradient(
+    180deg,
+    #0a1a2f 0%,
+    #0f2745 100%
+  );
+  padding: 120px 20px 140px;
+  text-align: center;
 }
 
-@media (max-width: 991px) {
-  .page-wrapper {
-    padding-top: 95px; /* navbar mobile */
+.form-header .title-head {
+  font-weight: 800;
+  font-size: clamp(36px, 4.5vw, 52px);
+  letter-spacing: -0.02em;
+}
+
+.form-header p {
+  margin-top: 10px;
+  font-size: .95rem;
+  color: #cbd5e1;
+}
+
+/* ===== STEP DOT (KECIL & ELEGAN) ===== */
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,.3);
+  border-radius: 50%;
+}
+
+.step-dot.active {
+  background: var(--accent);
+}
+
+/* ===== CARD FORM UTAMA ===== */
+.form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(15,23,42,.06);
+  box-shadow: 0 30px 60px rgba(15,23,42,.12);
+  margin-top: -120px;
+  overflow: hidden;
+}
+
+/* ===== BODY FORM ===== */
+.form-section-body {
+  padding: 56px 64px;
+}
+
+/* ===== JUDUL SECTION ===== */
+.form-section-body h5 {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--primary-dark);
+  margin-bottom: 24px;
+}
+
+/* ===== ICON BADGE ===== */
+.icon-badge {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-soft);
+  color: var(--primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: .95rem;
+}
+
+/* ===== INPUT & SELECT ===== */
+.form-control,
+.form-select {
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  font-size: .9rem;
+  padding: 12px 14px;
+}
+
+.form-control::placeholder {
+  color: #94a3b8;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-main);
+  box-shadow: 0 0 0 4px rgba(23,63,95,.15);
+  background: #ffffff;
+}
+
+/* ===== LABEL ===== */
+label {
+  font-weight: 600;
+  font-size: .85rem;
+  margin-bottom: 6px;
+}
+
+/* ===== TEXTAREA ===== */
+textarea.form-control {
+  resize: vertical;
+}
+
+/* ===== UPLOAD CARD ===== */
+.upload-card {
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.upload-card:hover {
+  background: #eef4ff;
+  border-color: var(--primary-main);
+}
+
+/* ===== SECURITY BOX ===== */
+.security-box {
+  margin-top: 36px;
+  padding: 20px 24px;
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.btn-submit {
+  display: block;
+  width: 100%;
+  margin-top: 36px;
+  padding: 16px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: .06em;
+  border-radius: 14px;
+  border: none;
+}
+
+.btn-submit:hover {
+  background: #e67610;
+}
+
+/* ===== INFO TEXT ===== */
+.form-section-body .small {
+  color: #64748b;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+  .form-section-body {
+    padding: 36px 26px;
   }
+
+  .form-card {
+    margin-top: -90px;
+  }
+
+}
+/* ==================================================
+   TRACKING PAGE – PREMIUM & PRESISI
+   ================================================== */
+
+/* HEADER */
+.tracking-header {
+  background: linear-gradient(180deg, #0a1a2f, #0f2745);
+  padding: 120px 20px 140px;
+  text-align: center;
+}
+
+.tracking-header .title-head {
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 50px);
+}
+
+.tracking-desc {
+  color: #cbd5e1;
+  max-width: 600px;
+  margin: 12px auto 0;
+  font-size: .95rem;
+}
+
+/* SECTION */
+.tracking-section {
+  padding: 80px 0;
+  background: var(--bg-soft);
+}
+
+/* CARD UMUM */
+.tracking-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 40px;
+  border: 1px solid rgba(15,23,42,.06);
+  box-shadow: 0 20px 50px rgba(15,23,42,.1);
+}
+
+/* FORM */
+.tracking-form {
+  display: flex;
+  gap: 14px;
+}
+
+.tracking-form .form-control {
+  height: 52px;
+  font-size: .95rem;
+}
+
+.btn-track {
+  background: var(--primary-dark);
+  color: #fff;
+  font-weight: 700;
+  padding: 0 28px;
+  border-radius: 12px;
+}
+
+.btn-track:hover {
+  background: var(--accent);
+}
+
+/* RESULT */
+.result-title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+}
+
+/* TABLE */
+.table th {
+  background: #f8fafc;
+  font-weight: 600;
+  width: 35%;
+}
+
+.table td {
+  background: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .tracking-form {
+    flex-direction: column;
+  }
+
+  .tracking-card {
+    padding: 28px 24px;
+  }
+
+}
+/* ==================================================
+   FAQ PAGE – PREMIUM PORTAL
+   ================================================== */
+/* ==================================================
+   GLOBAL BASE
+   ================================================== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f5f8ff;
+  color: #1e293b;
+}
+
+/* offset karena navbar fixed */
+.content-offset {
+  padding-top: 120px;
+}
+
+.container-compact {
+  max-width: 980px;
+}
+
+/* ==================================================
+   PAGE HEADER (FAQ)
+   ================================================== */
+.page-header {
+  background: linear-gradient(180deg, #0a1a2f, #102a46);
+  color: #ffffff;
+  padding: 140px 20px 160px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 50px);
+  margin-bottom: 12px;
+  letter-spacing: .5px;
+}
+
+.page-header p {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d1d5db;
+}
+
+/* ==================================================
+   BACKGROUND SECTION
+   ================================================== */
+.bg-soft {
+  background: #f5f8ff;
+}
+
+/* ==================================================
+   CARD PREMIUM (WRAPPER FAQ)
+   ================================================== */
+.card-premium {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 56px 64px;
+  box-shadow: 0 40px 90px rgba(15,23,42,.18);
+  border: 1px solid rgba(15,23,42,.08);
+  position: relative;
+  top: -90px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .card-premium {
+    padding: 36px 28px;
+    top: -70px;
+  }
+}
+
+/* ==================================================
+   ACCORDION FAQ
+   ================================================== */
+.card-premium .accordion {
+  display: grid;
+  gap: 22px;
+}
+
+/* item */
+.card-premium .accordion-item {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15,23,42,.12);
+}
+
+/* header button */
+.card-premium .accordion-button {
+  background: #ffffff;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 26px 30px;
+  color: #0f172a;
+  box-shadow: none;
+}
+
+/* icon */
+.card-premium .accordion-button::after {
+  transform: scale(.9);
+}
+
+/* active */
+.card-premium .accordion-button:not(.collapsed) {
+  background: #0a1a2f;
+  color: #ffffff;
+}
+
+/* body */
+.card-premium .accordion-body {
+  padding: 26px 30px;
+  font-size: .92rem;
+  line-height: 1.75;
+  color: #334155;
+  background: #ffffff;
+  border-top: 1px solid rgba(15,23,42,.08);
+}
+
+/* ==================================================
+   FOOTER COMPATIBILITY
+   ================================================== */
+footer {
+  background: #0a1a2f;
+  color: #e5e7eb;
+}
+
+footer hr {
+  border-color: rgba(255,255,255,.15);
+}
+/* ================= CSS HALAMAN GRAFIK ================= */
+.grafik-section {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+}
+
+.grafik-section h2 {
+    font-weight: 700;
+    color: #173f5f;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.list-group-item {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    #ratingChart {
+        height: 300px !important;
+    }
 }

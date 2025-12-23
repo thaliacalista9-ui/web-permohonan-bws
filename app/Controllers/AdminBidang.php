@@ -16,7 +16,6 @@ class AdminBidang extends BaseController
     // ================= DASHBOARD ADMIN BIDANG =================
     public function dashboard()
     {
-        // ambil id admin yang sedang login
         $adminId = session()->get('admin_id');
 
         $data['permohonan'] = $this->permohonanModel
@@ -39,7 +38,7 @@ class AdminBidang extends BaseController
         return view('admin/detail_permohonan_bidang', $data);
     }
 
-    // ================= PROSES ADMIN BIDANG =================
+    // ================= PROSES PERMOHONAN =================
     public function proses($id)
     {
         $file = $this->request->getFile('file_data');

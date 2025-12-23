@@ -3,367 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Utama | DataHub Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Admin Dashboard | SDA Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
-/* --------------------------
-   I. VARIASI WARNA & FONT
-   -------------------------- */
-:root {
-    --color-primary: #1F2A40; 
-    --color-secondary: #526c88ff; 
-    --color-background: #f8f9fa; 
-    --color-card: #ffffff;
-    --color-text-dark: #344767; 
-    --color-text-light: #8392ab; 
-    --color-success: #2dce89; 
-    --color-warning: #fb6340; 
-    --color-danger: #f5365c; 
-    --font-family: 'Poppins', sans-serif;
-}
-
-/* --------------------------
-   II. GLOBAL & LAYOUT
-   -------------------------- */
-body {
-    background: var(--color-background);
-    font-family: var(--font-family);
-    margin: 0;
-    color: var(--color-text-dark);
-    line-height: 1.6;
-}
-
-/* Header */
-.main-header {
-    background: var(--color-card);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); 
-    padding: 18px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky; 
-    top: 0;
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--color-primary);
-}
-
-.logout-btn {
-    color: var(--color-danger);
-    font-weight: 500;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: all 0.2s;
-    font-size: 15px;
-}
-
-.logout-btn:hover {
-    background: rgba(245, 54, 92, 0.1);
-    color: var(--color-danger);
-}
-
-/* Konten Utama */
-.container {
-    padding: 40px; 
-    max-width: 1600px;
-    margin: 0 auto;
-}
-
-.page-title {
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--color-text-dark);
-    margin-bottom: 2px;
-}
-
-.subtitle {
-    color: var(--color-text-light);
-    margin-bottom: 35px;
-    font-size: 16px;
-    font-weight: 400;
-}
-
-/* Card */
-.card {
-    background: var(--color-card);
-    border-radius: 15px; 
-    padding: 0; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 20px 25px rgba(0, 0, 0, 0.05); 
-    overflow: hidden; 
-}
-
-/* --------------------------
-   III. TABEL DATA
-   -------------------------- */
-table {
-    width: 100%;
-    border-collapse: collapse; 
-}
-
-thead th {
-    background: var(--color-primary); 
-    color: #fff;
-    padding: 16px 20px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-tbody tr {
-    transition: background-color 0.15s;
-}
-
-tbody tr:hover {
-    background-color: #f0f2f5; 
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
-td {
-    padding: 18px 20px;
-    border-bottom: 1px solid #e9ecef; 
-    vertical-align: middle;
-    font-size: 14px;
-    color: var(--color-text-dark);
-}
-
-/* --------------------------
-   IV. STATUS BADGE
-   -------------------------- */
-.status {
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 50px; 
-    font-size: 12px;
-    text-align: center;
-    display: inline-block;
-    min-width: 90px;
-}
-
-/* Warna Status */
-.status-Menunggu {
-    background-color: rgba(251, 99, 64, 0.15);
-    color: var(--color-warning); 
-}
-
-.status-Diproses {
-    background-color: rgba(0, 123, 255, 0.15);
-    color: var(--color-secondary); 
-}
-
-.status-Selesai {
-    background-color: rgba(45, 206, 137, 0.15);
-    color: var(--color-success); 
-}
-
-.status-Ditolak {
-    background-color: rgba(245, 54, 92, 0.15);
-    color: var(--color-danger); 
-}
-
-/* --------------------------
-   V. FORM DAN AKSI
-   -------------------------- */
-.action-group {
-    display: flex;
-    flex-direction: column; 
-    gap: 12px;
-}
-
-.btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-decoration: none;
-    min-width: 120px;
-}
-
-/* Tombol Khusus */
-.detail {
-    background: #424971ff; 
-    color: white;
-}
-.detail:hover {
-    background: #6a76b9ff;
-}
-
-.approve {
-    background: var(--color-success);
-    color: white;
-}
-.approve:hover {
-    background: #23a073;
-}
-
-.reject {
-    background: var(--color-danger);
-    color: white;
-}
-.reject:hover {
-    background: #d42a51;
-}
-
-.assign {
-    background: var(--color-secondary);
-    color: white;
-}
-.assign:hover {
-    background: #3b526cff;
-}
-
-
-/* Form Styling - Area Penolakan & Assign */
-.form-action {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 5px;
-}
-
-textarea,
-select {
-    width: 100%;
-    padding: 10px 12px;
-    margin-top: 0;
-    margin-bottom: 5px;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    box-sizing: border-box; 
-    font-family: var(--font-family);
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    background: #fcfcfc;
-}
-
-textarea:focus,
-select:focus {
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
-    background: var(--color-card);
-}
-
-small {
-    display: block;
-    margin-top: 5px;
-    color: var(--color-text-light);
-    line-height: 1.4;
-    font-size: 13px;
-    font-style: italic;
-    border-left: 3px solid var(--color-danger);
-    padding-left: 8px;
-}
-.status-Diserahkan {
-    background-color: rgba(82, 108, 136, 0.15);
-    color: var(--color-secondary);
-}
-
+    :root {
+        --primary-dongker: #0f172a;
+        --accent-blue: #2563eb;
+        --bg-body: #f1f5f9;
+        --surface: #ffffff;
+        --border-bold: #cbd5e1;
+        --border-light: #e2e8f0;
+        --text-main: #1e293b;
+        --text-muted: #475569;
+        --shadow-premium: 0 10px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1);
+        --s-waiting-bg: #fff7ed; --s-waiting-text: #9a3412;
+        --s-process-bg: #eff6ff; --s-process-text: #1e40af;
+        --s-success-bg: #f0fdf4; --s-success-text: #166534;
+        --s-danger-bg: #fef2f2; --s-danger-text: #991b1b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--bg-body);color:var(--text-main);}
+    header{background:var(--primary-dongker);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+    .brand-admin{font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:12px;}
+    .brand-admin i{color:var(--accent-blue);font-size:1.2rem;}
+    .logout-link{font-size:0.85rem;color:#cbd5e1;text-decoration:none;font-weight:700;padding:8px 18px;border-radius:6px;border:1px solid #334155;transition:all 0.3s;}
+    .logout-link:hover{background:#ef4444;border-color:#ef4444;color:white;}
+    .wrapper{padding:3rem 2.5rem;max-width:1500px;margin:0 auto;}
+    .section-header{margin-bottom:2rem;border-left:5px solid var(--accent-blue);padding-left:20px;}
+    .section-title{font-size:1.5rem;font-weight:800;color:var(--primary-dongker);text-transform:uppercase;}
+    .section-desc{font-size:0.95rem;color:var(--text-muted);font-weight:500;}
+    .card-container{background:var(--surface);border-radius:16px;border:1px solid var(--border-bold);box-shadow:var(--shadow-premium);margin-bottom:4rem;overflow:hidden;}
+    table{width:100%;border-collapse:collapse;text-align:left;}
+    thead{background:var(--primary-dongker);}
+    th{padding:18px 24px;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;font-weight:700;border-right:1px solid rgba(255,255,255,0.1);}
+    td{padding:20px 24px;font-size:0.95rem;border-bottom:1px solid var(--border-light);vertical-align:middle;font-weight:500;}
+    tbody tr:nth-child(even){background:#f8fafc;}
+    tbody tr:hover{background:#f1f5f9;}
+    .badge{padding:6px 14px;border-radius:8px;font-size:0.8rem;font-weight:800;display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;}
+    .badge-waiting{background:var(--s-waiting-bg);color:var(--s-waiting-text);border-color:#fed7aa;}
+    .badge-process{background:var(--s-process-bg);color:var(--s-process-text);border-color:#bfdbfe;}
+    .badge-success{background:var(--s-success-bg);color:var(--s-success-text);border-color:#bbf7d0;}
+    .badge-danger{background:var(--s-danger-bg);color:var(--s-danger-text);border-color:#fecaca;}
+    .action-cell{display:flex;gap:10px;justify-content:flex-end;}
+    .btn{padding:10px 18px;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s ease;display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid transparent;}
+    .btn-white{background:#fff;border-color:var(--border-bold);color:var(--primary-dongker);}
+    .btn-primary{background:var(--accent-blue);color:#fff;box-shadow:0 4px 6px rgba(37,99,235,0.2);}
+    .btn-dark{background:var(--primary-dongker);color:#fff;}
+    .btn-danger-outline{background:#fef2f2;border-color:#fca5a5;color:#b91c1c;}
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.1);box-shadow:0 8px 15px rgba(0,0,0,0.1);}
+    textarea, select{font-family:inherit;padding:12px;border-radius:8px;border:2px solid var(--border-light);font-size:0.9rem;font-weight:500;outline:none;transition:all 0.3s;}
+    textarea:focus, select:focus{border-color:var(--accent-blue);background:#fff;}
+    .user-meta b{display:block;color:var(--primary-dongker);font-size:1rem;margin-bottom:2px;}
+    .user-meta span{font-size:0.8rem;color:var(--text-muted);font-weight:600;}
 </style>
 </head>
-
 <body>
-<header class="main-header">
-    <div class="logo">
-        <i class="fas fa-database" style="color: var(--color-secondary);"></i> DataHub Admin Pro
+
+<header>
+    <div class="brand-admin"><i class="bi bi-layers-half"></i> SDA ENTERPRISE CONTROL</div>
+    <div style="display:flex;align-items:center;gap:25px;">
+        <div style="text-align:right;">
+            <p style="color:white;font-size:0.85rem;font-weight:700;margin:0;">Sistem Administrator</p>
+            <p style="color:var(--accent-blue);font-size:0.7rem;font-weight:800;text-transform:uppercase;margin:0;">Verified Access</p>
+        </div>
+        <a href="/admin/logout" class="logout-link">LOGOUT <i class="bi bi-box-arrow-right"></i></a>
     </div>
-    <a class="logout-btn" href="/admin/logout">
-        <i class="fas fa-sign-out-alt"></i> Keluar
-    </a>
 </header>
 
-<div class="container">
-    <h1 class="page-title">Manajemen Permohonan Data</h1>
-    <div class="subtitle">Verifikasi dan Alokasi Permintaan Data Secara Real-Time</div>
+<div class="wrapper">
 
-    <div class="card">
+    <!-- ANTRIAN BARU -->
+    <div class="section-header">
+        <h2 class="section-title">Antrian Permohonan Baru</h2>
+        <p class="section-desc">Silakan periksa kelengkapan dokumen pemohon.</p>
+    </div>
+    <div class="card-container">
         <table>
             <thead>
                 <tr>
-                    <th>Nama Pemohon</th>
+                    <th style="width:250px;">Pemohon</th>
                     <th>Jenis Data</th>
                     <th>Status</th>
-                    <th>Aksi & Alokasi</th>
+                    <th style="text-align:right;">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($permohonan as $p): ?>
-                <tr>
-                    <td>
-                        <strong><?= esc($p['nama']) ?></strong>
-                        <div style="font-size: 12px; color: var(--color-text-light);">ID #<?= $p['id'] ?></div>
-                    </td>
-                    <td><?= esc($p['jenis_data']) ?></td>
-                    <td>
-                        <span class="status status-<?= str_replace(' ', '', esc($p['status'])) ?>">
-                            <?= esc($p['status']) ?>
-                        </span>
-                    </td>
-                    <td>
-                        <div class="action-group">
-                            <a class="btn detail" href="/admin/permohonan/<?= $p['id'] ?>">
-                                <i class="fas fa-info-circle"></i> Lihat Detail
-                            </a>
-
-                            <?php if($p['status']=='Menunggu'): ?>
-                            
-                            <form method="post" action="/admin/approve/<?= $p['id'] ?>">
-                                <button class="btn approve">
-                                    <i class="fas fa-check"></i> Setuju & Lanjutkan
-                                </button>
-                            </form>
-
-                            <form method="post" action="/admin/reject/<?= $p['id'] ?>" class="form-action">
-                                <textarea name="alasan_penolakan" required placeholder="Tulis alasan penolakan di sini..." rows="2"></textarea>
-                                <button class="btn reject">
-                                    <i class="fas fa-times"></i> Tolak Permohonan
-                                </button>
-                            </form>
-
-                            <?php elseif($p['status']=='Diproses'): ?>
-
-                            <form method="post" action="/admin/assign/<?= $p['id'] ?>" class="form-action">
-                                <select name="assigned_to" required>
-                                    <option value="">-- Pilih Bidang Penanggung Jawab --</option>
-                                    <?php foreach($admins as $a): ?>
-                                    <option value="<?= $a['id'] ?>"><?= esc($a['bidang']) ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                                <button class="btn assign">
-                                    <i class="fas fa-users-cog"></i> Alokasikan Tugas
-                                </button>
-                            </form>
-                            <div style="font-size: 12px; color: var(--color-text-light);">*Wajib dialokasikan ke Bidang.</div>
-
-                            <?php elseif($p['status']=='Ditolak'): ?>
-                            <small>
-                                <b>Alasan Penolakan:</b><br>
-                                <?= esc($p['alasan_penolakan']) ?>
-                            </small>
-                            <?php endif ?>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach ?>
+                    <?php if(strtolower($p['status'])=='diproses' || strtolower($p['status'])=='menunggu'): ?>
+                    <tr>
+                        <td><div class="user-meta"><b><?= esc($p['nama']) ?></b><span>ID: #<?= $p['id'] ?></span></div></td>
+                        <td><?= esc($p['jenis_data']) ?></td>
+                        <td>
+                            <?php if(strtolower($p['status'])=='menunggu'): ?>
+                                <span class="badge badge-waiting"><i class="bi bi-hourglass-split"></i> Menunggu</span>
+                            <?php else: ?>
+                                <span class="badge badge-process"><i class="bi bi-arrow-repeat spin"></i> Diproses</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <div class="action-cell">
+                                <a href="/admin/permohonan/<?= $p['id'] ?>" class="btn btn-white"><i class="bi bi-eye"></i> Detail</a>
+                                <?php if(strtolower($p['status'])=='menunggu'): ?>
+                                    <form method="post" action="/admin/approve/<?= $p['id'] ?>" style="display:inline;">
+                                        <button class="btn btn-primary"><i class="bi bi-check-lg"></i> Setujui</button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+
+    <!-- PROGRES & ALOKASI -->
+    <div class="section-header">
+        <h2 class="section-title">Pengerjaan & Alokasi</h2>
+        <p class="section-desc">Pantau progres dan alokasikan tugas internal.</p>
+    </div>
+    <div class="card-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pemohon</th>
+                    <th>Jenis Data</th>
+                    <th>Status</th>
+                    <th>Alokasi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($permohonan as $p): ?>
+                    <?php if(strtolower($p['status'])=='diproses'): ?>
+                    <tr>
+                        <td><?= esc($p['nama']) ?></td>
+                        <td><?= esc($p['jenis_data']) ?></td>
+                        <td><span class="badge badge-process">Diproses</span></td>
+                        <td>
+                            <form method="post" action="/admin/assign/<?= $p['id'] ?>" style="display:flex;gap:10px;">
+                                <select name="assigned_to" required style="flex-grow:1;">
+                                    <option value="">-- Pilih Bidang --</option>
+                                    <?php foreach($admins as $a): ?>
+                                        <option value="<?= $a['id'] ?>"><?= esc($a['bidang']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <button class="btn btn-dark">Alokasikan</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ARSIP RIWAYAT -->
+    <div class="section-header">
+        <h2 class="section-title">Arsip Riwayat</h2>
+        <p class="section-desc">Transaksi yang telah selesai atau ditolak.</p>
+    </div>
+    <div class="card-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pemohon</th>
+                    <th>Jenis Data</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($permohonan as $p): ?>
+                    <?php if(strtolower($p['status'])=='ditolak' || strtolower($p['status'])=='selesai'): ?>
+                    <tr>
+                        <td><?= esc($p['nama']) ?></td>
+                        <td><?= esc($p['jenis_data']) ?></td>
+                        <td><span class="badge <?= strtolower($p['status'])=='selesai' ? 'badge-success' : 'badge-danger' ?>"><?= strtoupper($p['status']) ?></span></td>
+                        <td style="font-size:0.85rem;">
+                            <?php if(strtolower($p['status'])=='ditolak'): ?>
+                                <span style="color:#b91c1c;"><i class="bi bi-x-octagon-fill"></i> Alasan: <?= esc($p['alasan_penolakan']) ?></span>
+                            <?php else: ?>
+                                <span style="color:#166534;"><i class="bi bi-cloud-check-fill"></i> Data selesai dikirim</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 </body>
 </html>

@@ -1,13 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark navbar-professional">
+<nav class="navbar navbar-expand-lg navbar-premium fixed-top">
     <div class="container container-compact">
 
         <!-- BRAND -->
-        <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/img/logo.png" alt="Logo BWS" class="navbar-logo">
-            <div class="navbar-brand-text ms-2">
-                <div class="navbar-brand-title">SISTEM PERMOHONAN DATA</div>
-                <div class="navbar-brand-sub">BWS Sumatera V</div>
-            </div>
+        <a class="navbar-brand brand-text" href="/">
+            LAYANAN DATA SDA
         </a>
 
         <!-- TOGGLER -->
@@ -19,29 +15,31 @@
 
         <!-- MENU -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
+            <ul class="navbar-nav align-items-lg-center gap-lg-4 mt-3 mt-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link <?= uri_string() == '' ? 'active' : '' ?>" href="/">BERANDA</a>
+                    <a class="nav-link <?= uri_string() == '' ? 'active' : '' ?>" href="/">
+                        Beranda
+                    </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link <?= uri_string() == 'permohonan' ? 'active' : '' ?>" href="/permohonan">
-                        PERMOHONAN
+                        Permohonan
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link <?= uri_string() == 'tracking' ? 'active' : '' ?>" href="/tracking">
-                        LACAK PERMOHONAN
+                        Tracking
                     </a>
                 </li>
 
                 <li class="nav-item">
-    <a class="nav-link <?= uri_string() == 'grafik' ? 'active' : '' ?>" href="<?= base_url('grafik') ?>">
-        GRAFIK
-    </a>
-</li>
+                    <a class="nav-link <?= uri_string() == 'grafik' ? 'active' : '' ?>" href="<?= base_url('grafik') ?>">
+                        Grafik
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link <?= uri_string() == 'faq' ? 'active' : '' ?>" href="/faq">
@@ -49,10 +47,10 @@
                     </a>
                 </li>
 
-                <!-- LOGIN ADMIN -->
+                <!-- ADMIN -->
                 <li class="nav-item ms-lg-3">
-                    <a class="nav-link nav-btn-admin-professional" href="/admin/login">
-                        <i class="bi bi-person-lock me-2"></i> LOGIN ADMIN
+                    <a class="btn btn-admin" href="/admin/login">
+                        Admin Panel
                     </a>
                 </li>
 

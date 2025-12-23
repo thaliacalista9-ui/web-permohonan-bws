@@ -1,101 +1,134 @@
 <?= $this->include('layout/header') ?>
 <?= $this->include('layout/navbar') ?>
 
-<main class="content-offset"> 
-    
-    <section class="hero">
-        <div class="hero-content container container-compact" data-aos="fade-down">
-            <h1>Layanan Informasi<br>Sumber Daya Air</h1>
-            <p class="hero-sub">Sistem layanan permohonan data berbasis website untuk mendukung transparansi, kecepatan, dan kemudahan bagi masyarakat.</p>
+<main class="content-offset">
 
-            <div class="hero-cta">
-                <div class="dropdown">
-                    <button class="btn btn-main dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ajukan Permohonan 
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/permohonan">Permohonan Data</a></li>
-                        <li><a class="dropdown-item" href="/panduan">Panduan Permohonan</a></li>
-                    </ul>
-                </div>
+    <!-- =========================
+         HERO PORTAL (DONGKER)
+    ========================== -->
+    <section class="home-hero">
+        <div class="container container-compact">
 
-                <a class="btn btn-ghost" href="/tracking"><i class="bi bi-search"></i> Lacak Permohonan</a>
-            </div>
-        </div>
-    </section>
+            <span class="hero-badge">Layanan Informasi Publik</span>
 
-    <section class="py-5">
-        <div class="container container-compact text-center mb-5">
-            <h2 class="section-title">FITUR UTAMA SISTEM</h2>
-            <p class="lead text-muted">Akses mudah dan terpercaya.</p>
-        </div>
+            <h1 class="hero-title">
+                Sistem Informasi<br>
+                Sumber Daya Air
+            </h1>
 
-        <div class="row g-4 container container-compact">
-
-            <div class="col-md-4" data-aos="fade-up">
-                <div class="feature-box"> 
-                    <i class="feature-icon bi bi-file-earmark-text"></i>
-                    <h5>Ajukan Permohonan</h5>
-                    <p>Permintaan data dapat dilakukan dengan mengisi formulir secara online.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
-                <div class="feature-box">
-                    <i class="feature-icon bi bi-search"></i>
-                    <h5>Lacak Status</h5>
-                    <p>Pemohon dapat memantau proses verifikasi dokumen dan progres permohonan.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-box">
-                    <i class="feature-icon bi bi-cloud-arrow-down"></i>
-                    <h5>Unduh Data</h5>
-                    <p>Setelah disetujui, data dapat langsung diunduh dalam bentuk digital.</p>
-                </div>
-            </div>
+            <p class="hero-desc">
+                Portal layanan resmi permohonan data Sumber Daya Air
+                untuk mendukung transparansi, ketertiban, dan kemudahan
+                akses informasi pada BWS Sumatera V.
+            </p>
 
         </div>
     </section>
 
-    <hr class="container-compact">
+    <!-- =========================
+         QUICK ACCESS (CARD)
+    ========================== -->
+    <section class="home-cards">
+        <div class="container container-compact">
+            <div class="row g-4">
 
-    <section class="py-5">
-        <div class="container container-compact text-center mb-5">
-            <h2 class="section-title">ALUR PERMOHONAN DATA</h2>
-            <p class="lead text-muted">3 langkah mudah untuk mendapatkan data.</p>
+                <!-- CARD 1 -->
+                <div class="col-md-4">
+                    <div class="portal-card">
+                        <h5>Ajukan Permohonan Data</h5>
+                        <p>
+                            Ajukan permintaan data Sumber Daya Air
+                            secara resmi melalui sistem digital.
+                        </p>
+                        <a href="/permohonan" class="card-link">
+                            Ajukan Permohonan →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="col-md-4">
+                    <div class="portal-card">
+                        <h5>Lacak Status Permohonan</h5>
+                        <p>
+                            Pantau proses verifikasi dan status
+                            permohonan data yang telah diajukan.
+                        </p>
+                        <a href="/tracking" class="card-link">
+                            Lacak Permohonan →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="col-md-4">
+                    <div class="portal-card">
+                        <h5>Informasi & Ketentuan</h5>
+                        <p>
+                            Informasi alur, ketentuan, dan kebijakan
+                            layanan permohonan data SDA.
+                        </p>
+                        <a href="/faq" class="card-link">
+                            Lihat Informasi →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="row g-4 container container-compact">
+    <!-- =========================
+         FLOW / ALUR
+    ========================== -->
+    <section class="home-flow">
+        <div class="container container-compact">
 
-            <div class="col-md-4" data-aos="zoom-in">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h5>Isi Formulir</h5>
-                    <p>Lengkapi data diri dan data kebutuhan informasi SDA.</p>
+            <h2 class="section-title">Alur Permohonan Data</h2>
+            <p class="text-muted mb-4">
+                Proses pengajuan data dilakukan melalui tiga tahap utama.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <div class="flow-card">
+                        <span>01</span>
+                        <h5>Pengajuan Permohonan</h5>
+                        <p>
+                            Pemohon mengisi formulir permintaan data
+                            sesuai kebutuhan informasi.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="150">
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h5>Proses Verifikasi</h5>
-                    <p>Admin akan memeriksa dan memvalidasi permohonan.</p>
+                <div class="col-md-4">
+                    <div class="flow-card">
+                        <span>02</span>
+                        <h5>Verifikasi Admin</h5>
+                        <p>
+                            Permohonan diverifikasi dan ditinjau
+                            oleh administrator sistem.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h5>Data Siap Diambil</h5>
-                    <p>Pemohon dapat mengunduh data setelah permohonan disetujui.</p>
+                <div class="col-md-4">
+                    <div class="flow-card">
+                        <span>03</span>
+                        <h5>Data Tersedia</h5>
+                        <p>
+                            Data dapat diunduh setelah permohonan
+                            disetujui oleh admin.
+                        </p>
+                    </div>
                 </div>
+
             </div>
 
         </div>
     </section>
-    
+
 </main>
 
 <?= $this->include('layout/footer') ?>
