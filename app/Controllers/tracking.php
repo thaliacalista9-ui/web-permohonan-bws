@@ -6,6 +6,9 @@ use App\Models\PermohonanModel;
 
 class Tracking extends BaseController
 {
+    // =========================
+    // HALAMAN AWAL TRACKING
+    // =========================
     public function index()
     {
         return view('tracking', [
@@ -14,15 +17,24 @@ class Tracking extends BaseController
         ]);
     }
 
+    // =========================
+    // CARI DATA TRACKING
+    // =========================
     public function cari()
     {
-        $kode  = $this->request->getPost('kode');
         $model = new PermohonanModel();
 
-        // =====================================
-        // CARI BERDASARKAN FIELD `kode`
-        // (SESUAI CONTROLLER PERMOHONAN KAMU)
-        // =====================================
+        // 🔹 Jika habis download → auto load ulang
+        if (session()->getFlashdata('after_download')) {
+            $kode = session()->getFlashdata('after_download');
+        } else {
+            $kode = $this->request->getPost('kode');
+        }
+
+        if (!$kode) {
+            return redirect()->to('/tracking');
+        }
+
         $hasil = $model->where('kode', $kode)->first();
 
         if (!$hasil) {
@@ -33,25 +45,24 @@ class Tracking extends BaseController
         }
 
         /**
-         * =====================================
-         * LOGIKA ALUR TRACKING (PROFESIONAL)
-         * =====================================
+         * ===============================
+         * LOGIKA STATUS TRACKING
+         * ===============================
          * status:
          * - Diproses
-         * - Diserahkan
          * - Selesai
          * - Ditolak
          *
-         * tambahan field (disarankan):
+         * field tambahan:
          * - file_diunduh (0/1)
          * - survey_diisi (0/1)
          */
 
-        // Default aman
+        // Default
         $hasil['boleh_download'] = false;
         $hasil['wajib_survey']   = false;
 
-        // 🔹 JIKA DATA SELESAI & BELUM DOWNLOAD
+        // 🔹 Selesai & belum download
         if (
             $hasil['status'] === 'Selesai'
             && ($hasil['file_diunduh'] ?? 0) == 0
@@ -59,7 +70,7 @@ class Tracking extends BaseController
             $hasil['boleh_download'] = true;
         }
 
-        // 🔹 JIKA SUDAH DOWNLOAD TAPI BELUM SURVEY
+        // 🔹 Sudah download tapi belum survey
         if (
             $hasil['status'] === 'Selesai'
             && ($hasil['file_diunduh'] ?? 0) == 1
@@ -68,7 +79,7 @@ class Tracking extends BaseController
             $hasil['wajib_survey'] = true;
         }
 
-        // 🔹 JIKA DITOLAK → WAJIB SURVEY
+        // 🔹 Ditolak & belum survey
         if (
             $hasil['status'] === 'Ditolak'
             && ($hasil['survey_diisi'] ?? 0) == 0
@@ -80,5 +91,79 @@ class Tracking extends BaseController
             'not_found' => false,
             'hasil'     => $hasil
         ]);
+    }
+
+    // =========================
+    // DOWNLOAD FILE HASIL
+    // =========================
+    public function download($kode)
+    {
+        $model = new PermohonanModel();
+
+        $data = $model->where('kode', $kode)->first();
+
+        if (!$data || empty($data['file_data'])) {
+            return redirect()->to('/tracking')
+                ->with('error', 'File tidak ditemukan.');
+        }
+
+        // 🔹 lokasi file SESUAI punyamu
+        $path = FCPATH . 'uploads/data_bidang/' . $data['file_data'];
+
+        if (!file_exists($path)) {
+            return redirect()->to('/tracking')
+                ->with('error', 'File tidak ada di server.');
+        }
+
+        // 🔹 tandai sudah diunduh
+        $model->update($data['id'], [
+            'file_diunduh' => 1
+        ]);
+
+        // 🔹 trigger agar halaman tracking reload & munculin survey
+        session()->setFlashdata('after_download', $kode);
+
+        return $this->response->download($path, null);
+    }
+
+    // =========================
+    // FORM SURVEI KEPUASAN
+    // =========================
+    public function isiKepuasan($kode)
+    {
+        $model = new PermohonanModel();
+
+        $data = $model->where('kode', $kode)->first();
+
+        if (!$data) {
+            return redirect()->to('/tracking');
+        }
+
+        return view('kepuasan_form', [
+            'data' => $data
+        ]);
+    }
+
+    // =========================
+    // SIMPAN SURVEI KEPUASAN
+    // =========================
+    public function simpanKepuasan()
+    {
+        $model = new PermohonanModel();
+
+        $kode = $this->request->getPost('kode');
+
+        if (!$kode) {
+            return redirect()->to('/tracking');
+        }
+
+        $model->where('kode', $kode)->set([
+            'survey_diisi'   => 1,
+            'rating_layanan' => $this->request->getPost('rating'),
+            'kritik_saran'   => $this->request->getPost('kritik_saran')
+        ])->update();
+
+        return redirect()->to('/tracking')
+            ->with('success', 'Terima kasih atas penilaian Anda.');
     }
 }
